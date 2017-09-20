@@ -2,7 +2,24 @@ meta-nvidia
 ===========
 This layer adds support for NVidia graphics cards using the upstream
 binary drivers. It's a pile of dirty hacks and will likely break your
-build in new and exciting ways.
+build in new and exciting ways. This layer makes no attempt to support
+any platform other than x86_64. It has only been tested with the pyro
+branch of yocto.
+
+To use this layer, include it in your bblayers.conf and add the
+following to your BSP layer:
+
+  PREFERRED_VERSION_mesa = "17.%"
+  PREFERRED_PROVIDER_virtual/libgl = "libglvnd"
+  PREFERRED_PROVIDER_virtual/libgles1 = "libglvnd"
+  PREFERRED_PROVIDER_virtual/libgles2 = "libglvnd"
+  PREFERRED_PROVIDER_virtual/egl = "libglvnd"
+  PREFERRED_PROVIDER_virtual/mesa = "libglvnd"
+  KERNEL_MODULE_AUTOLOAD_append = " nvidia nvidia-drm nvidia-modeset nvidia-uvm"
+  XSERVER_append = " nvidia"
+
+Optionally, add the nvidia-docker and nvidia-docker-compose packages if you
+desire that functionality.
 
 
 nvidia
@@ -32,6 +49,11 @@ This layer depends on:
   layers: meta
   branch: pyro
 
+  URI: git://git.yoctoproject.org/meta-openembedded
+  layers: meta-oe
+  branch: pyro
+
   URI: git://git.yoctoproject.org/meta-virtualization
   layers: meta-virtualization
   branch: pyro
+
