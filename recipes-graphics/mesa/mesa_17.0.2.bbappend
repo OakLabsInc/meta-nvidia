@@ -8,9 +8,18 @@ PROVIDES_remove = "virtual/libgl virtual/libgles1 virtual/libgles2 virtual/egl v
 
 # We ONLY want glx
 do_install_append() {
-	rm -rf ${D}${includedir}/{GL,GLES,KHR,EGL,GLES2}
-	rm -rf ${D}${libdir}/pkgconfig/{egl,glesv1_cm,glesv2,gl}.pc
-	rm -rf ${D}${libdir}/{libEGL.so,libGLESv1_CM.so,libGLESv2.so}
+	rm -rf ${D}${includedir}/GL
+	rm -rf ${D}${includedir}/GLES
+	rm -rf ${D}${includedir}/KHR
+	rm -rf ${D}${includedir}/EGL
+	rm -rf ${D}${includedir}/GLES2
+	rm -f ${D}${libdir}/pkgconfig/gl.pc
+	rm -f ${D}${libdir}/pkgconfig/egl.pc
+	rm -f ${D}${libdir}/pkgconfig/glesv1_cm.pc
+	rm -f ${D}${libdir}/pkgconfig/glesv2.pc
+	rm -f ${D}${libdir}/libEGL.so
+	rm -f ${D}${libdir}/libGLESv1_CM.so
+	rm -f ${D}${libdir}/libGLESv2.so
 }
 
 FILES_libglx-mesa_append = " \
