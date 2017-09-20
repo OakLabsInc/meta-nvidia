@@ -1,0 +1,24 @@
+PACKAGECONFIG[glvnd] = "--enable-libglvnd,--disable-libglvnd,libglvnd"
+PACKAGECONFIG_append = " glvnd"
+
+PACKAGES_append += " libglx-mesa libglx-mesa-dev"
+PACKAGES_remove = "libgl-mesa libgl-mesa-dev libegl-mesa libegl-mesa-dev libgles1-mesa libgles1-mesa-dev libgles2-mesa libgles2-mesa-dev"
+
+PROVIDES_remove = "virtual/libgl virtual/libgles1 virtual/libgles2 virtual/egl virtual/mesa"
+
+# We ONLY want glx
+do_install_append() {
+	rm -rf ${D}${includedir}/{GL,GLES,KHR,EGL,GLES2}
+	rm -rf ${D}${libdir}/pkgconfig/{egl,glesv1_cm,glesv2,gl}.pc
+	rm -rf ${D}${libdir}/{libEGL.so,libGLESv1_CM.so,libGLESv2.so}
+}
+
+FILES_libglx-mesa_append = " \
+	${libdir}/libGLX_mesa.so.0.0.0 \
+"
+
+FILES_libglx-mesa-dev_append = " \
+	${libdir}/libGLX_mesa.so.0 \
+	${libdir}/libGLX_mesa.so \
+"
+RDEPENDS_libglx-mesa-dev_append = " libglx-mesa"

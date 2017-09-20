@@ -1,3 +1,28 @@
+meta-nvidia
+===========
+This layer adds support for NVidia graphics cards using the upstream
+binary drivers. It's a pile of dirty hacks and will likely break your
+build in new and exciting ways.
+
+
+nvidia
+======
+The nvidia source package builds the kernel modules and installs the
+userspace libraries from NVidia's binary package. The userspace
+libraries depend on libglvnd, which attempts to wrap all GL calls and
+redirect them to the correct libraries at runtime. This build mostly
+supersedes mesa, except for it's GLX implementation.
+
+
+nvidia-docker
+=============
+The nvidia-docker package is included to ease the pain of running
+hardware accelerated applications inside docker containers. Building
+this package depends on your host system having a working docker
+service. meta-virtualization is only a dependency if nvidia-docker
+support is needed.
+
+
 Dependencies
 ============
 
@@ -5,4 +30,8 @@ This layer depends on:
 
   URI: git://git.yoctoproject.org/poky
   layers: meta
+  branch: pyro
+
+  URI: git://git.yoctoproject.org/meta-virtualization
+  layers: meta-virtualization
   branch: pyro

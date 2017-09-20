@@ -1,0 +1,46 @@
+diff --git kernel/Kbuild kernel/Kbuild
+index 0bbafa3..3db7383 100644
+--- kernel/Kbuild
++++ kernel/Kbuild
+@@ -116,8 +116,9 @@ NV_CONFTEST_HEADERS += $(NV_CONFTEST_COMPILE_TEST_HEADERS)
+ $(obj)/conftest/compile-tests/%.h: $(NV_CONFTEST_SCRIPT) $(NV_CONFTEST_HEADER)
+ 	@mkdir -p $(obj)/conftest/compile-tests
+ 	@echo " CONFTEST: $(notdir $*)"
++	@echo "$(NV_CONFTEST_CMD) compile_tests '$(NV_CONFTEST_CFLAGS)' $(notdir $*)"
+ 	@$(NV_CONFTEST_CMD) compile_tests '$(NV_CONFTEST_CFLAGS)' \
+-	 $(notdir $*) > $@
++	 $(notdir $*) | tee $@
+ 
+ #
+ # Concatenate a conftest/*.h header from its constituent compile test headers
+diff --git kernel/conftest.sh kernel/conftest.sh
+index f6a555d..9aa571b 100755
+--- kernel/conftest.sh
++++ kernel/conftest.sh
+@@ -800,7 +800,7 @@ compile_test() {
+                 kmem_cache_create();
+             }" > conftest$$.c
+ 
+-            $CC $CFLAGS -c conftest$$.c > /dev/null 2>&1
++            $CC $CFLAGS -c conftest$$.c
+             rm -f conftest$$.c
+ 
+             if [ -f conftest$$.o ]; then
+@@ -815,7 +815,7 @@ compile_test() {
+                 kmem_cache_create(NULL, 0, 0, 0L, NULL, NULL);
+             }" > conftest$$.c
+ 
+-            $CC $CFLAGS -c conftest$$.c > /dev/null 2>&1
++            $CC $CFLAGS -c conftest$$.c
+             rm -f conftest$$.c
+ 
+             if [ -f conftest$$.o ]; then
+@@ -831,7 +831,7 @@ compile_test() {
+                 kmem_cache_create(NULL, 0, 0, 0L, NULL);
+             }" > conftest$$.c
+ 
+-            $CC $CFLAGS -c conftest$$.c > /dev/null 2>&1
++            $CC $CFLAGS -c conftest$$.c
+             rm -f conftest$$.c
+ 
+             if [ -f conftest$$.o ]; then
