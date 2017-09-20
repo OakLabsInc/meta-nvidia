@@ -16,7 +16,11 @@ following to your BSP, distro, or local config:
   PREFERRED_PROVIDER_virtual/egl = "libglvnd"
   PREFERRED_PROVIDER_virtual/mesa = "libglvnd"
   KERNEL_MODULE_AUTOLOAD_append = " nvidia nvidia-drm nvidia-modeset nvidia-uvm"
-  XSERVER_append = " nvidia"
+  XSERVER = " \
+      ${XSERVER_X86_BASE} \
+      ${XSERVER_X86_EXT} \
+      ${XSERVER_X86_MODESETTING} \
+      nvidia"
   DISTRO_FEATURES_append = " x11 opengl"
   DISTRO_FEATURES_remove = " wayland"
 
