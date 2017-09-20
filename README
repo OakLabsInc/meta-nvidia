@@ -7,7 +7,7 @@ any platform other than x86_64. It has only been tested with the pyro
 branch of yocto.
 
 To use this layer, include it in your bblayers.conf and add the
-following to your BSP layer:
+following to your BSP, distro, or local config:
 
   PREFERRED_VERSION_mesa = "17.%"
   PREFERRED_PROVIDER_virtual/libgl = "libglvnd"
@@ -17,6 +17,8 @@ following to your BSP layer:
   PREFERRED_PROVIDER_virtual/mesa = "libglvnd"
   KERNEL_MODULE_AUTOLOAD_append = " nvidia nvidia-drm nvidia-modeset nvidia-uvm"
   XSERVER_append = " nvidia"
+  DISTRO_FEATURES_append = " x11 opengl"
+  DISTRO_FEATURES_remove = " wayland"
 
 Optionally, add the nvidia-docker and nvidia-docker-compose packages if you
 desire that functionality.
