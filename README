@@ -18,6 +18,9 @@ following to your BSP layer:
   KERNEL_MODULE_AUTOLOAD_append = " nvidia nvidia-drm nvidia-modeset nvidia-uvm"
   XSERVER_append = " nvidia"
 
+You must also have wayland in your DISTRO_FEATURES list, otherwise the
+egl wrapper will break all kinds of crap.
+
 Optionally, add the nvidia-docker and nvidia-docker-compose packages if you
 desire that functionality.
 
