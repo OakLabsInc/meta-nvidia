@@ -1,0 +1,8 @@
+Dependencies
+============
+
+This layer depends on:
+
+  URI: git://git.yoctoproject.org/poky
+  layers: meta
+  branch: pyro
